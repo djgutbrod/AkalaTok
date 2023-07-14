@@ -10,8 +10,8 @@
     <!-- Custom CSS -->
     <style>
         body {
-            /* Add a dark gray gradient */
-            background: linear-gradient(180deg, #F4A70D 7.28%, #161616 7.29%, #595959 10.94%, #646464 53.65%, #000 93.23%, #193041 93.24%);
+            /* Updated gradient background */
+            background: linear-gradient(180deg, #F4A70D 7.28%, #161616 7.29%, #313131 10.94%, #959595 48.44%, #000 93.23%, #193041 93.24%);
             height: 100%;
             margin: 0;
             padding: 0;
@@ -21,6 +21,7 @@
 
         .swiper-container {
             height: 100vh; /* make it take up the full screen */
+            overflow: visible; /* Make sure overflow isn't hidden */
         }
         .swiper-slide {
             display: flex;
@@ -28,10 +29,23 @@
             align-items: center;
             justify-content: center;
         }
-        /* Larger pagination dots */
+        /* Adjusted video player size and added shadow */
+        video {
+            height: 80vh; /* 80% of the viewport height */
+            width: auto; /* Maintain aspect ratio */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Add shadow */
+        }
+        /* Pagination styling */
+        .swiper-pagination {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            z-index: 9999; /* Make sure it's on top */
+        }
         .swiper-pagination-bullet {
-            width: 40px;
-            height: 40px;
+            display: inline-block;
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -42,22 +56,22 @@
         <div class="swiper-wrapper">
             <!-- Slides (Your Videos) -->
             <div class="swiper-slide">
-                <video class="plyr" controls>
+                <video class="plyr" controls autoplay muted>
                     <source src="vid1.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="swiper-slide">
-                <video class="plyr" controls>
+                <video class="plyr" controls autoplay muted>
                     <source src="vid2.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="swiper-slide">
-                <video class="plyr" controls>
+                <video class="plyr" controls autoplay muted>
                     <source src="vid3.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="swiper-slide">
-                <video class="plyr" controls>
+                <video class="plyr" controls autoplay muted>
                     <source src="vid4.mp4" type="video/mp4">
                 </video>
             </div>
@@ -98,10 +112,10 @@
             lazy: true
         });
 
-        const players = Array.from(document.querySelectorAll('.plyr')).map(p => new Plyr(p));
-
-        // Play the first video manually
-        players[0].play();
+        const players = Array.from(document.querySelectorAll('.plyr')).map(p => new Plyr(p, {
+            muted: true, // videos start out muted
+            autoplay: true, // autoplay videos
+        }));
     </script>
 </body>
 </html>
