@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- Plyr CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            /* Add a dark gray gradient */
+            background: linear-gradient(180deg, #F4A70D 7.28%, #161616 7.29%, #595959 10.94%, #646464 53.65%, #000 93.23%, #193041 93.24%);
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: scroll; /* Enable vertical scroll */
+        }
+
+        .swiper-container {
+            height: 100vh; /* make it take up the full screen */
+        }
+        .swiper-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Larger pagination dots */
+        .swiper-pagination-bullet {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Swiper Container -->
+    <div class="swiper-container">
+        <!-- Swiper Wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides (Your Videos) -->
+            <div class="swiper-slide">
+                <video class="plyr" controls>
+                    <source src="vid1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="swiper-slide">
+                <video class="plyr" controls>
+                    <source src="vid2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="swiper-slide">
+                <video class="plyr" controls>
+                    <source src="vid3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="swiper-slide">
+                <video class="plyr" controls>
+                    <source src="vid4.mp4" type="video/mp4">
+                </video>
+            </div>
+            <!-- add more slides as needed... -->
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Plyr JS -->
+    <script src="https://cdn.plyr.io/3.6.8/plyr.min.js"></script>
+
+    <!-- Initialize Swiper and Plyr -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            direction: 'vertical',
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            on: {
+                slideChange: function () {
+                    players.forEach((player, index) => {
+                        if(index === this.activeIndex) {
+                            player.play();
+                        } else {
+                            player.pause();
+                        }
+                    });
+                },
+            },
+            // Enable preloading of all images
+            preloadImages: true,
+            // Enable lazy loading
+            lazy: true
+        });
+
+        const players = Array.from(document.querySelectorAll('.plyr')).map(p => new Plyr(p));
+
+        // Play the first video manually
+        players[0].play();
+    </script>
+</body>
+</html>
