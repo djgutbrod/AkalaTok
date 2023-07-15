@@ -34,6 +34,7 @@
             height: 80vh; /* 80% of the viewport height */
             width: auto; /* Maintain aspect ratio */
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Add shadow */
+            pointer-events: none;
         }
         /* Pagination styling */
         .swiper-pagination {
@@ -121,8 +122,8 @@
             </div>
             <!-- add more slides as needed... -->
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
+        <!-- Add Pagination 
+        <div class="swiper-pagination"></div>-->
     </div>
 
     <!-- Swiper JS -->
@@ -135,6 +136,7 @@
     <script>
         var swiper = new Swiper('.swiper-container', {
             direction: 'vertical',
+            threshold: 5,
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
@@ -161,6 +163,16 @@
             autoplay: true, // autoplay videos
             controls: [] // no controls
         }));
+        document.querySelector('.swiper-container').addEventListener('click', function() {
+            const currentPlayer = players[swiper.activeIndex];
+            if (currentPlayer.playing) {
+                currentPlayer.pause();
+            } else {
+                currentPlayer.play();
+            }
+        });
     </script>
+
+    
 </body>
 </html>
